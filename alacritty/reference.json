@@ -328,19 +328,25 @@
 					"description": "Visual bell animation color."
 				},
 				"command": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"program": {
-							"type": "string"
-						},
-						"args": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						}
+					"$ref": "#/definitions/Alacritty.Command"
+				}
+			}
+		},
+		"Alacritty.Command":  {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"program": {
+					"type": "string"
+				},
+				"args": {
+					"type": "array",
+					"items": {
+						"type": "string"
 					}
+				}
+			}
+		},
 				}
 			}
 		}

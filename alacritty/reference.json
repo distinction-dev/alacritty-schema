@@ -229,6 +229,69 @@
 				}
 			},
 			"additionalProperties": false
+		},
+		"Alacritty.Cursor": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"style": {
+					"$ref": "#/definitions/Alacritty.Cursor.Style"
+				},
+				"vi_mode_style": {
+					"$ref": "#/definitions/Alacritty.Cursor.Style",
+					"description": "\nVi mode cursor style\n If the vi mode cursor style is `None` or not specified, it will fall back to\n the style of the active value of the normal cursor."
+				},
+				"blink_interval": {
+					"description": "Cursor blinking interval in milliseconds.",
+					"type": "integer",
+					"default": 750,
+					"minimum": 0
+				},
+				"blink_timeout": {
+					"type": "integer",
+					"description": "Time after which cursor stops blinking in seconds. \n\n Specifying '0' will disable timeout for blinking",
+					"default": 5
+				},
+				"unfocused_hollow": {
+					"type": "boolean",
+					"default": true,
+					"description": "If this is `true`, the cursor will be rendered as a hollow box when the window is not focused."
+				},
+				"thickness": {
+					"type": "number",
+					"description": "Thickness of the cursor relative to the cell width as floating point number from `0.0` to `1.0`.",
+					"minimum": 0,
+					"maximum": 1
+				}
+			}
+		},
+		"Alacritty.Cursor.Style": {
+			"type": "object",
+			"description": "Cursor Style",
+			"properties": {
+				"shape": {
+					"type": "string",
+					"default": "Block",
+					"description": "Cursor shape\n\n Values for `shape`:\n   - ▇ Block\n   - _ Underline\n   - | Beam",
+					"enum": [
+						"Block",
+						"Beam",
+						"Underline"
+					]
+				},
+				"blinking": {
+					"description": "# Cursor blinking state\n\n Values for `blinking`:\n   - Never: Prevent the cursor from ever blinking\n   - Off: Disable blinking by default\n   - On: Enable blinking by default\n   - Always: Force the cursor to always blink",
+					"type": "string",
+					"default": "Off",
+					"enum": [
+						"Never",
+						"Off",
+						"On",
+						"Always"
+					]
+				}
+			},
+			"additionalProperties": false
 		}
 	},
 	"type": "object",
@@ -259,6 +322,9 @@
 		"live_config_reload": {
 			"type": "boolean",
 			"description": "Live config reload (changes require restart). Will make alacritty auto load new changes in the config file"
+		},
+		"cursor": {
+			"$ref": "#/definitions/Alacritty.Cursor"
 		}
 	},
 	"additionalProperties": false

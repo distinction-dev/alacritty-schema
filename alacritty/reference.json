@@ -292,6 +292,57 @@
 				}
 			},
 			"additionalProperties": false
+		},
+		"Alacritty.Bell": {
+			"type": "object",
+			"description": "The bell is rung every time the BEL control character is received.",
+			"additionalProperties": false,
+			"properties": {
+				"animation": {
+					"type": "string",
+					"enum": [
+						"Ease",
+						"EaseOut",
+						"EaseOutSine",
+						"EaseOutQuad",
+						"EaseOutCubic",
+						"EaseOutQuart",
+						"EaseOutQuint",
+						"EaseOutExpo",
+						"EaseOutCirc",
+						"Linear"
+					],
+					"default": "EaseOutExpo",
+					"description": "Animation effect for flashing the screen when the visual bell is rung."
+				},
+				"duration": {
+					"description": "Duration of the visual bell flash in milliseconds. A `duration` of `0` will\n disable the visual bell animation.",
+					"type": "integer",
+					"default": 0
+				},
+				"color": {
+					"type": "string",
+					"minLength": 7,
+					"maxLength": 7,
+					"default": "\"#ffffff\"",
+					"description": "Visual bell animation color."
+				},
+				"command": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"program": {
+							"type": "string"
+						},
+						"args": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"type": "object",
@@ -325,6 +376,9 @@
 		},
 		"cursor": {
 			"$ref": "#/definitions/Alacritty.Cursor"
+		},
+		"bell": {
+			"$ref": "#/definitions/Alacritty.Bell"
 		}
 	},
 	"additionalProperties": false

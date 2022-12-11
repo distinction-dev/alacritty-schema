@@ -1,0 +1,265 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Alacritty Configuration",
+	"description": "Configuration schema for [Alacritty](https://github.com/alacritty/alacritty), the GPU enhanced terminal emulator",
+	"fileMatch": ["alacritty.yml", "alacritty.yaml", ".alacritty.yml", ".alacritty.yaml"],
+	"definitions": {
+		"Alacritty.Window": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"dimensions": {
+					"description": "Window dimensions (changes require restart). \n Number of lines/columns (not pixels) in the terminal. Both lines and columns\n must be non-zero for this to take effect. The number of columns must be at\n least `2`, while using a value of `0` for columns and lines will fall back\n to the window manager's recommended size",
+					"type": "object",
+					"properties": {
+						"columns": {
+							"type": "number",
+							"minimum": 2
+						},
+						"lines": {
+							"type": "number",
+							"minimum": 0
+						}
+					},
+					"required": [],
+					"additionalProperties": false
+				},
+				"position": {
+					"description": "Window position (changes require restart)\nSpecified in number of pixels.\nIf the position is not set, the window manager will handle the placement.",
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"x": {
+							"type": "number"
+						},
+						"y": {
+							"type": "number"
+						}
+					}
+				},
+				"padding": {
+					"description": "# Window padding (changes require restart)\n\n Blank space added around the window in pixels. This padding is scaled\n by DPI and the specified value is always added at both opposing sides.",
+					"additionalProperties": false,
+					"type": "object",
+					"properties": {
+						"x": {
+							"type": "number"
+						},
+						"y": {
+							"type": "number"
+						}
+					}
+				},
+				"dynamic_padding": {
+					"type": "boolean",
+					"description": "Spread additional padding evenly around the terminal content."
+				},
+				"decorations": {
+					"description": "Values for `decorations`: \n     - full: Borders and title bar \n     - none: Neither borders nor title bar \n\n Values for `decorations` (macOS only):\n     - transparent: Title bar, transparent background and title bar buttons\n     - buttonless: Title bar, transparent background and no title bar buttons",
+					"type": "string",
+					"enum": [
+						"full",
+						"none",
+						"transparent",
+						"buttonless"
+					]
+				},
+				"opacity": {
+					"description": "Background opacity\n\n Window opacity as a floating point number from `0.0` to `1.0`.\n The value `0.0` is completely transparent and `1.0` is opaque.",
+					"type": "number",
+					"minimum": 0,
+					"maximum": 1,
+					"default": 1.0
+				},
+				"startup_mode": {
+					"description": "  # Startup Mode (changes require restart)\n\n Values for `startup_mode`:\n   - Windowed\n   - Maximized\n   - Fullscreen\n\n Values for `startup_mode` (macOS only):\n   - SimpleFullscreen",
+					"type": "string",
+					"enum": [
+						"Windowed",
+						"Maximized",
+						"Fullscreen",
+						"SimpleFullscreen"
+					]
+				},
+				"title": {
+					"type": "string",
+					"description": "Window Title"
+				},
+				"dynamic_title": {
+					"type": "boolean",
+					"default": true,
+					"description": "Allow terminal applications to change Alacritty's window title."
+				},
+				"class": {
+					"type": "object",
+					"description": "Window class (Linux/BSD only):",
+					"properties": {
+						"instance": {
+							"type": "string",
+							"default": "Alacritty"
+						},
+						"general": {
+							"type": "string",
+							"default": "Alacritty"
+						}
+					}
+				},
+				"decorations_theme_variant": {
+					"type": "string",
+					"description": "Decorations theme variant (Linux/BSD only)\n\nOverride the variant of the GTK theme/Wayland client side decorations.\n Commonly supported values are `dark` and `light`. Set this to `None` to use\n the default theme variant.",
+					"default": "None"
+				},
+				"scrolling": {
+					"type": "object",
+					"properties": {
+						"history": {
+							"type": "integer",
+							"minimum": 0,
+							"default": 10000,
+							"description": "Maximum number of lines in the scrollback buffer.\n Specifying '0' will disable scrolling."
+						},
+						"multiplier": {
+							"description": "Scrolling distance multiplier.",
+							"type": "integer",
+							"default": 3
+						}
+					},
+					"additionalProperties": false
+				}
+			}
+		},
+		"Alacritty.Font": {
+			"type": "object",
+			"properties": {
+				"normal": {
+					"type": "object",
+					"properties": {
+						"family": {
+							"description": "Font family\n\n Default:\n   - (macOS) Menlo\n   - (Linux/BSD) monospace\n   - (Windows) Consolas",
+							"type": "string"
+						},
+						"style": {
+							"description": "The `style` can be specified to pick a specific face.",
+							"type": "string"
+						}
+					}
+				},
+				"bold": {
+					"type": "object",
+					"properties": {
+						"family": {
+							"description": "If the bold family is not specified, it will fall back to the\n value specified for the normal font.",
+							"type": "string"
+						},
+						"style": {
+							"description": "The `style` can be specified to pick a specific face.",
+							"type": "string"
+						}
+					}
+				},
+				"italic": {
+					"type": "object",
+					"properties": {
+						"family": {
+							"description": "If the italic family is not specified, it will fall back to the\n value specified for the normal font.",
+							"type": "string"
+						},
+						"style": {
+							"description": "The `style` can be specified to pick a specific face.",
+							"type": "string"
+						}
+					}
+				},
+				"bold_italic": {
+					"type": "object",
+					"properties": {
+						"family": {
+							"description": "If the bold_italic family is not specified, it will fall back to the\n value specified for the normal font.",
+							"type": "string"
+						},
+						"style": {
+							"description": "The `style` can be specified to pick a specific face.",
+							"type": "string"
+						}
+					}
+				},
+				"size": {
+					"type": "number",
+					"minimum": 0,
+					"description": "Point size"
+				},
+				"offset": {
+					"type": "object",
+					"additionalProperties": false,
+					"description": "Offset is the extra space around each character. `offset.y` can be thought\n of as modifying the line spacing, and `offset.x` as modifying the letter\n spacing.",
+					"properties": {
+						"x": {
+							"type": "number",
+							"default": 0
+						},
+						"y": {
+							"type": "number",
+							"default": 0
+						}
+					}
+				},
+				"glyph_offset": {
+					"type": "object",
+					"additionalProperties": false,
+					"description": "Glyph offset determines the locations of the glyphs within their cells with\n the default being at the bottom. Increasing `x` moves the glyph to the\n right, increasing `y` moves the glyph upward.",
+					"properties": {
+						"x": {
+							"type": "number",
+							"default": 0
+						},
+						"y": {
+							"type": "number",
+							"default": 0
+						}
+					}
+				},
+				"builtin_box_drawing": {
+					"type": "boolean",
+					"default": false,
+					"description": "Use built-in font for box drawing characters.\n\n If `true`, Alacritty will use a custom built-in font for box drawing\n characters (Unicode points 2500 - 259f)."
+				},
+				"draw_bold_text_with_bright_colors": {
+					"type": "boolean",
+					"description": "If `true`, bold text is drawn using the bright color variants."
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"type": "object",
+	"properties": {
+		"import": {
+			"type": "array",
+			"description": "Import additional configuration files. \n Imports are loaded in order, skipping all missing files, with the importing file being loaded last. If a field is already present in a previous import, it will be replaced.",
+			"items": {
+				"type": "string"
+			}
+		},
+		"env": {
+			"description": "Any items in the `env` entry below will be added as environment variables. Some entries may override variables set by alacritty itself.",
+			"type": "object",
+			"additionalProperties": true
+		},
+		"window": {
+			"$ref": "#/definitions/Alacritty.Window"
+		},
+		"font": {
+			"$ref": "#/definitions/Alacritty.Font"
+		},
+		"working_directory": {
+			"description": "Startup directory\n\n Directory the shell is started in. If this is unset, or `None`, the working\n directory of the parent process will be used.",
+			"type": "string",
+			"default": "None"
+		},
+		"live_config_reload": {
+			"type": "boolean",
+			"description": "Live config reload (changes require restart). Will make alacritty auto load new changes in the config file"
+		}
+	},
+	"additionalProperties": false
+}

@@ -347,8 +347,44 @@
 				}
 			}
 		},
+		"Alacritty.Debug": {
+			"type": "object",
+			"properties": {
+				"render_timer": {
+					"type": "boolean",
+					"description": "Display the time it takes to redraw each frame.",
+					"default": false
+				},
+				"persistent_logging": {
+					"type": "boolean",
+					"description": "Keep the log file after quitting Alacritty.",
+					"default": false
+				},
+				"log_level": {
+					"type": "string",
+					"enum": [
+						"Off",
+						"Error",
+						"Warn",
+						"Info",
+						"Debug",
+						"Trace"
+					],
+					"default": "Warn"
+				},
+				"print_events": {
+					"type": "boolean",
+					"description": "Print all received window events.",
+					"default": false
+				},
+				"highlight_damage": {
+					"type": "boolean",
+					"description": "Highlight window damage information.",
+					"default": false
 				}
-			}
+			},
+			"additionalProperties": false
+		},
 		}
 	},
 	"type": "object",
@@ -385,6 +421,9 @@
 		},
 		"bell": {
 			"$ref": "#/definitions/Alacritty.Bell"
+		"debug": {
+			"$ref": "#/definitions/Alacritty.Debug"
+		},
 		}
 	},
 	"additionalProperties": false

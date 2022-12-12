@@ -385,6 +385,148 @@
 			},
 			"additionalProperties": false
 		},
+		"Alacritty.MouseBinding": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"mouse": {
+					"type": "string",
+					"enum": [
+						"Left",
+						"Middle",
+						"Right"
+					]
+				},
+				"action": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"mouse",
+				"action"
+			]
+		},
+		"Alacritty.KeyBindings": {
+			"description": "Key bindings are specified as a list of objects. For example, this is the default paste binding:\n `- { key: V, mods: Control|Shift, action: Paste }`",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"key": {
+					"$ref": "#/definitions/Alacritty.KeyBindings.Key"
+				},
+				"chars": {
+					"$ref": "#/definitions/Alacritty.KeyBindings.Chars"
+				},
+				"action": {
+					"$ref": "#/definitions/Alacritty.KeyBindings.Action"
+				},
+				"command": {
+					"$ref": "#/definitions/Alacritty.Command"
+				},
+				"mode": {
+					"$ref": "#/definitions/Alacritty.Mode"
+				},
+				"mods": {
+					"type": "string",
+					"description": "Key modifiers to filter binding actions\n\n    - Command\n    - Control\n    - Option\n    - Super\n    - Shift\n    - Alt\n    Multiple `mods` can be combined using `|` like this:\n       `mods: Control|Shift`.\n    Whitespace and capitalization are relevant and must match the example."
+				}
+			}
+		},
+		"Alacritty.KeyBindings.Key": {
+			"description": "Identifier of the key pressed.\n\n - A-Z\n - F1-F24\n - Key0-Key9\n\n A full list with available key codes can be found here:\n https://docs.rs/glutin/*/glutin/event/enum.VirtualKeyCode.html#variants\n\n Instead of using the name of the keys, the `key` field also supports using the scancode of the desired key. Scancodes have to be specified as a decimal number. This command will allow you to display the hex scancodes for certain keys:\n\n    `showkey --scancodes`.",
+			"type": "string"
+		},
+		"Alacritty.KeyBindings.Chars": {
+			"description": "The `chars` field writes the specified string to the terminal. This makes\n    it possible to pass escape sequences. To find escape codes for bindings\n    like `PageUp` (`\"\\x1b[5~\"`), you can run the command `showkey -a` outside\n    of tmux. Note that applications use terminfo to map escape sequences back\n    to keys. It is therefore required to update the terminfo when changing an\n    escape sequence.",
+			"type": "string"
+		},
+		"Alacritty.KeyBindings.Action": {
+			"description": "Execute a predefined action\n   - ToggleViMode\n   - SearchForward\n       Start searching toward the right of the search origin.\n   - SearchBackward\n       Start searching toward the left of the search origin.\n   - Copy\n   - Paste\n   - IncreaseFontSize\n   - DecreaseFontSize\n   - ResetFontSize\n   - ScrollPageUp\n   - ScrollPageDown\n   - ScrollHalfPageUp\n   - ScrollHalfPageDown\n   - ScrollLineUp\n   - ScrollLineDown\n   - ScrollToTop\n   - ScrollToBottom\n   - ClearHistory\n       Remove the terminal's scrollback history.\n   - Hide\n       Hide the Alacritty window.\n   - Minimize\n       Minimize the Alacritty window.\n   - Quit\n       Quit Alacritty.\n   - ToggleFullscreen\n   - SpawnNewInstance\n       Spawn a new instance of Alacritty.\n   - CreateNewWindow\n       Create a new Alacritty window from the current process.\n   - ClearLogNotice\n       Clear Alacritty's UI warning and error notice.\n   - ClearSelection\n       Remove the active selection.\n   - ReceiveChar\n   - None\n - Vi mode exclusive actions:\n   - Open\n       Perform the action of the first matching hint under the vi mode cursor\n       with `mouse.enabled` set to `true`.\n   - ToggleNormalSelection\n   - ToggleLineSelection\n   - ToggleBlockSelection\n   - ToggleSemanticSelection\n       Toggle semantic selection based on `selection.semantic_escape_chars`.\n   - CenterAroundViCursor\n       Center view around vi mode cursor\n - Vi mode exclusive cursor motion actions:\n   - Up\n       One line up.\n   - Down\n       One line down.\n   - Left\n       One character left.\n   - Right\n       One character right.\n   - First\n       First column, or beginning of the line when already at the first column.\n   - Last\n       Last column, or beginning of the line when already at the last column.\n   - FirstOccupied\n       First non-empty cell in this terminal row, or first non-empty cell of\n       the line when already at the first cell of the row.\n   - High\n       Top of the screen.\n   - Middle\n       Center of the screen.\n   - Low\n       Bottom of the screen.\n   - SemanticLeft\n       Start of the previous semantically separated word.\n   - SemanticRight\n       Start of the next semantically separated word.\n   - SemanticLeftEnd\n       End of the previous semantically separated word.\n   - SemanticRightEnd\n       End of the next semantically separated word.\n   - WordLeft\n       Start of the previous whitespace separated word.\n   - WordRight\n       Start of the next whitespace separated word.\n   - WordLeftEnd\n       End of the previous whitespace separated word.\n   - WordRightEnd\n       End of the next whitespace separated word.\n   - Bracket\n       Character matching the bracket at the cursor's location.\n   - SearchNext\n       Beginning of the next match.\n   - SearchPrevious\n       Beginning of the previous match.\n   - SearchStart\n       Start of the match to the left of the vi mode cursor.\n   - SearchEnd\n       End of the match to the right of the vi mode cursor.\n - Search mode exclusive actions:\n   - SearchFocusNext\n       Move the focus to the next search match.\n   - SearchFocusPrevious\n       Move the focus to the previous search match.\n   - SearchConfirm\n   - SearchCancel\n   - SearchClear\n       Reset the search regex.\n   - SearchDeleteWord\n       Delete the last word in the search regex.\n   - SearchHistoryPrevious\n       Go to the previous regex in the search history.\n   - SearchHistoryNext\n       Go to the next regex in the search history.\n - macOS exclusive actions:\n   - ToggleSimpleFullscreen\n       Enter fullscreen without occupying another space.\n - Linux/BSD exclusive actions:\n   - CopySelection\n       Copy from the selection buffer.\n   - PasteSelection\n       Paste from the selection buffer.\n ",
+			"type": "string",
+			"enum": [
+				"ToggleViMode",
+				"SearchForward",
+				"SearchBackward",
+				"Copy",
+				"Paste",
+				"IncreaseFontSize",
+				"DecreaseFontSize",
+				"ResetFontSize",
+				"ScrollPageUp",
+				"ScrollPageDown",
+				"ScrollHalfPageUp",
+				"ScrollHalfPageDown",
+				"ScrollLineUp",
+				"ScrollLineDown",
+				"ScrollToTop",
+				"ScrollToBottom",
+				"ClearHistory",
+				"Hide",
+				"Minimize",
+				"Quit",
+				"ToggleFullscreen",
+				"SpawnNewInstance",
+				"CreateNewWindow",
+				"ClearLogNotice",
+				"ClearSelection",
+				"ReceiveChar",
+				"None",
+				"Open",
+				"ToggleNormalSelection",
+				"ToggleLineSelection",
+				"ToggleBlockSelection",
+				"ToggleSemanticSelection",
+				"CenterAroundViCursor",
+				"Up",
+				"Down",
+				"Left",
+				"Right",
+				"First",
+				"Last",
+				"FirstOccupied",
+				"High",
+				"Middle",
+				"Low",
+				"SemanticLeft",
+				"SemanticRight",
+				"SemanticLeftEnd",
+				"SemanticRightEnd",
+				"WordLeft",
+				"WordRight",
+				"WordLeftEnd",
+				"WordRightEnd",
+				"Bracket",
+				"SearchNext",
+				"SearchPrevious",
+				"SearchStart",
+				"SearchEnd",
+				"SearchFocusNext",
+				"SearchFocusPrevious",
+				"SearchConfirm",
+				"SearchCancel",
+				"SearchClear",
+				"SearchDeleteWord",
+				"SearchHistoryPrevious",
+				"SearchHistoryNext",
+				"ToggleSimpleFullscreen",
+				"CopySelection",
+				"PasteSelection"
+			]
+		},
+		"Alacritty.Mode": {
+			"type": "string",
+			"enum": [
+				"AppCursor",
+				"AppKeypad",
+				"Search",
+				"Alt",
+				"Vi",
+				"~AppCursor",
+				"~AppKeypad",
+				"~Search",
+				"~Alt",
+				"~Vi"
+			]
 		}
 	},
 	"type": "object",
@@ -430,9 +572,20 @@
 			"type": "boolean",
 			"description": "Offer IPC using `alacritty msg` (unix only)"
 		},
+		"mouse_bindings": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Alacritty.MouseBinding"
+			}
+		},
 		"debug": {
 			"$ref": "#/definitions/Alacritty.Debug"
 		},
+		"key_bindings": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Alacritty.KeyBindings"
+			}
 		}
 	},
 	"additionalProperties": false

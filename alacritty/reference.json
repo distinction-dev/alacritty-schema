@@ -421,6 +421,15 @@
 		},
 		"bell": {
 			"$ref": "#/definitions/Alacritty.Bell"
+		},
+		"alt_send_esc": {
+			"type": "boolean",
+			"description": "Send ESC (\\x1b) before characters when alt is pressed."
+		},
+		"ipc_socket": {
+			"type": "boolean",
+			"description": "Offer IPC using `alacritty msg` (unix only)"
+		},
 		"debug": {
 			"$ref": "#/definitions/Alacritty.Debug"
 		},

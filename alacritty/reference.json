@@ -332,6 +332,22 @@
 				}
 			}
 		},
+		"Alacritty.Selection": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"semantic_escape_chars": {
+					"type": "string",
+					"default": ",│`|:\"' ()[]{}<>\t",
+					"description": "This string contains all characters that are used as separators for \"semantic words\" in Alacritty."
+				},
+				"save_to_clipboard": {
+					"type": "boolean",
+					"default": false,
+					"description": "When set to `true`, selected text will be copied to the primary clipboard."
+				}
+			}
+		},
 		"Alacritty.Command":  {
 			"type": "object",
 			"additionalProperties": false,
@@ -563,6 +579,9 @@
 		},
 		"bell": {
 			"$ref": "#/definitions/Alacritty.Bell"
+		},
+		"selection": {
+			"$ref": "#/definitions/Alacritty.Selection"
 		},
 		"alt_send_esc": {
 			"type": "boolean",

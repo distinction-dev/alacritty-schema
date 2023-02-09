@@ -607,5 +607,5 @@
 			}
 		}
 	},
-	"additionalProperties": false
+	"additionalProperties": true
 }

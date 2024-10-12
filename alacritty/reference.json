@@ -432,7 +432,7 @@
       },
       "additionalProperties": false
     },
-    "color": {
+    "colors": {
       "properties": {
         "primary": {
           "type": "object",
@@ -641,7 +641,7 @@
               "pattern": "#[a-z0-9]{6}",
               "type": "string"
             },
-            "megenta": {
+            "magenta": {
               "default": "#aa759f",
               "pattern": "#[a-z0-9]{6}",
               "type": "string"
@@ -686,7 +686,7 @@
               "pattern": "#[a-z0-9]{6}",
               "type": "string"
             },
-            "megenta": {
+            "magenta": {
               "default": "#c28cb8",
               "pattern": "#[a-z0-9]{6}",
               "type": "string"
@@ -731,7 +731,7 @@
               "pattern": "#[a-z0-9]{6}",
               "type": "string"
             },
-            "megenta": {
+            "magenta": {
               "default": "#704d68",
               "pattern": "#[a-z0-9]{6}",
               "type": "string"

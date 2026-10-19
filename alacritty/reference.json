@@ -606,7 +606,7 @@
               "pattern": "#[a-z0-9]{6}|CellBackground|CellForeground",
               "type": "string"
             },
-            "cursor": {
+            "background": {
               "default": "CellForeground",
               "pattern": "#[a-z0-9]{6}|CellBackground|CellForeground",
               "type": "string"
